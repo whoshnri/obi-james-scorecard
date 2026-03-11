@@ -13,6 +13,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { ChevronRight, ChevronLeft, ArrowRight, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { calculateScore } from '@/data/questions';
+import Footer from '@/components/ui/Footer';
+import Header from '@/components/ui/Header';
 
 type Step = 'quiz' | 'lead-capture';
 
@@ -141,12 +143,10 @@ function QuizContent() {
 
   if (step === 'quiz') {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 overflow-hidden font-body">
-        <div className="w-full bg-[#303868] flex items-center justify-center z-50">
-          <img src="/logo.webp" alt="Obi James Logo" className="h-28 object-contain" />
-        </div>
-        <div className="w-full max-w-xl py-10">
-          <div className="mb-10 space-y-4">
+      <div className="min-h-screen flex flex-col bg-gray-100 overflow-x-hidden font-body">
+        <Header />
+        <div className="flex-grow w-full max-w-xl mx-auto py-10 px-4 flex flex-col justify-center">
+          <div className="w-full mb-10 space-y-4">
             <div className="flex justify-between items-end text-xs font-semibold tracking-tight text-gray-500 uppercase">
               <span className="flex items-center gap-2">
                 Progress
@@ -216,7 +216,7 @@ function QuizContent() {
               </CardContent>
             </div>
 
-            <CardFooter className="flex justify-between border-t border-gray-100 p-6 bg-gray-50/80 text-gray-500">
+            <CardFooter className="flex justify-between items-center border-t border-gray-100 p-4 md:p-6 bg-gray-50/80 text-gray-500">
               <Button
                 variant="ghost"
                 onClick={handleBack}
@@ -231,23 +231,17 @@ function QuizContent() {
             </CardFooter>
           </Card>
         </div>
-        <div className="w-full py-2 mt-20 bg-[#303868] flex items-center justify-between px-32 z-50">
-        <img src="/footer_logo.webp" alt="Obi James Logo" className="h-36 object-contain" />
-
-        <p>© 2023 by Obi James Consultancy Limited. All rights reserved.</p>
-      </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100  fade-in duration-400 font-body">
-      <div className="w-full bg-[#303868] flex items-center justify-center z-50">
-        <img src="/logo.webp" alt="Obi James Logo" className="h-28 object-contain" />
-      </div>
-      <div className="w-full max-w-xl py-12">
-        <Card className="border-none ring-1 ring-black/5 overflow-hidden bg-white">
-          <CardHeader className="text-center space-y-3 p-10">
+    <div className="min-h-screen flex flex-col bg-gray-100 fade-in duration-400 font-body">
+      <Header />
+      <div className="flex-grow w-full max-w-xl mx-auto py-12 px-4 flex flex-col justify-center">
+        <Card className="border-none ring-1 ring-black/5 overflow-hidden bg-white w-full">
+          <CardHeader className="text-center space-y-3 p-6 md:p-10">
             <CardTitle className="text-3xl md:text-3xl font-headline font-black text-[#303868] ">
               Scorecard Complete!
             </CardTitle>
@@ -255,7 +249,7 @@ function QuizContent() {
               Submit your details to receive your <span className="text-[#303868] font-bold underline decoration-[#00B4D8]/50 underline-offset-4">Deep Insights Report</span>.
             </p>
           </CardHeader>
-          <CardContent className="px-10 pb-10">
+          <CardContent className="px-6 md:px-10 pb-6 md:pb-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
@@ -372,11 +366,7 @@ function QuizContent() {
           </CardFooter>
         </Card>
       </div>
-      <div className="w-full py-2 mt-20 bg-[#303868] flex items-center justify-between px-32 z-50">
-        <img src="/footer_logo.webp" alt="Obi James Logo" className="h-36 object-contain" />
-
-        <p>© 2023 by Obi James Consultancy Limited. All rights reserved.</p>
-      </div>
+      <Footer />
     </div>
   );
 }

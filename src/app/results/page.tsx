@@ -9,6 +9,8 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { MessageSquare, Shield, Zap, Users, Heart, ArrowRight, Download, Calendar, BookOpen, Code, School } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/ui/Footer';
+import Header from '@/components/ui/Header';
 
 interface ResultData {
   firstName: string;
@@ -99,9 +101,7 @@ export default function ResultsPage() {
   if (error) {
     return (
       <>
-        <div className="fixed top-0 left-0 right-0 h-16 bg-[#303868] flex items-center justify-center z-50">
-          <img src="/logo.webp" alt="Obi James Logo" className="h-8 object-contain" />
-        </div>
+        <Header />
         <div className="min-h-screen flex flex-col items-center justify-center p-4 pt-20 bg-gray-50">
           <div className="text-center space-y-4 max-w-md">
             <h2 className="text-2xl font-bold text-red-600">Something went wrong</h2>
@@ -153,9 +153,7 @@ export default function ResultsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-body animate-in fade-in duration-500">
-      <div className="w-full bg-[#303868] flex items-center justify-center z-50">
-        <img src="/logo.webp" alt="Obi James Logo" className="h-28 object-contain" />
-      </div>
+      <Header />
       <div className="container mx-auto px-4 max-w-4xl space-y-8">
 
         {/* Header Summary */}
@@ -330,11 +328,7 @@ export default function ResultsPage() {
           </div>
         </div>
       </div>
-      <div className="w-full py-2 mt-20 bg-[#303868] flex items-center justify-between px-32 z-50">
-        <img src="/footer_logo.webp" alt="Obi James Logo" className="h-36 object-contain" />
-
-        <p>© 2023 by Obi James Consultancy Limited. All rights reserved.</p>
-      </div>
+      <Footer />
     </div>
   );
 }
