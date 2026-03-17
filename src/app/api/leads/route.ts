@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { sendScorecardEmail } from '@/lib/actions/email';
 
 export async function POST(request: Request) {
   try {
@@ -14,35 +15,25 @@ export async function POST(request: Request) {
       level: data.level
     });
 
-    // 2. Mock Email Automation Trigger
-    console.log('[EMAIL AUTOMATION TRIGGERED] Sending sequences to:', data.email);
-    
-    console.log(`
-      [EMAIL 1 - Sent Immediately]
-      Subject: Your Leadership Scorecard Results
-      To: ${data.email}
-      Content: Thank you for completing the leadership diagnostic...
-    `);
-    
-    console.log(`
-      [EMAIL 2 - Queued 24h]
-      Subject: The leadership blind spot most managers miss
-      Content: Many leaders focus on strategy and results...
-    `);
+    // 2. Trigger Email Forwarding
+    try {
+      const emailPayload = {
+        firstName: data.firstName,
+        email: data.email,
+        role: data.role,
+        organization: data.organization,
+        totalScore: data.totalScore,
+        level: data.level,
+        dimensionScores: data.dimensionScores
+      };
 
-    console.log(`
-      [EMAIL 3 - Queued 48h]
-      Subject: How leaders build high trust teams
-      Content: High performing teams rarely happen by accident...
-    `);
+      await sendScorecardEmail(emailPayload);
+    } catch (emailError) {
+      console.error('[API_ROUTE]: Failed to trigger email forwarding:', emailError);
+      // We don't want to fail the whole request if email fails, but we log it
+    }
 
-    console.log(`
-      [EMAIL 4 - Queued 72h]
-      Subject: How leaders transform team performance
-      Content: Many leaders who take this diagnostic discover one or two behavioral shifts...
-    `);
-
-    return NextResponse.json({ success: true, message: 'Lead captured and emails queued' });
+    return NextResponse.json({ success: true, message: 'Lead captured and results forwarded' });
   } catch (error) {
     console.error('Failed to process lead:', error);
     return NextResponse.json({ success: false, error: 'Failed to process lead' }, { status: 500 });
